@@ -18,6 +18,7 @@ var cookieParser = require('cookie-parser');
 var session = require("express-session");
 var errorHandler = require('errorhandler');
 var path = require('path');
+var port = process.env.PORT || 3000;
 app.use(express.logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded());
@@ -100,9 +101,6 @@ app.get('/doctorDisplayData', function(req, res){
 });
 
 
-var server = app.listen(8081, function () {
-    var host = server.address().address
-    var port = server.address().port
-
-    console.log("Example app listening at http://%s:%s", host, port)
-})
+app.listen(port, function() {
+    console.log('app listening on port', port);
+});
