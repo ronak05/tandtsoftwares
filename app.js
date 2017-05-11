@@ -36,13 +36,13 @@ app.use(session({resave: true, saveUninitialized: true, secret: 'SOMERANDOMSECRE
 
 app.set('view engine', 'ejs');
 /*var mongoose = require('mongoose');
-var configDB = require('./config/database.js');
-mongoose.connect(configDB.url);
-console.log(mongoose.connection.readyState);
-mongoose.connection.on('connected', function () {
-    console.log('Mongoose default connection open to ' + configDB.url);
-});*/
- // pass passport for configuration
+ var configDB = require('./config/database.js');
+ mongoose.connect(configDB.url);
+ console.log(mongoose.connection.readyState);
+ mongoose.connection.on('connected', function () {
+ console.log('Mongoose default connection open to ' + configDB.url);
+ });*/
+// pass passport for configuration
 // routes ======================================================================
 
 var MongoClient1 = require('mongodb').MongoClient;
