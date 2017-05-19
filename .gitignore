@@ -30,6 +30,8 @@ logs
 *.log
 
 .idea
+/*.env
 
 # Deps
 node_modules
+npm-debug.log
