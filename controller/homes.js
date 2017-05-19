@@ -266,72 +266,64 @@ exports.SelectDoctorSpecialization= function (req, res) {
     });
 };
 exports.contactProcess = function(req, res){
-    console.log("************i Started   *************************");
     var name=req.param("name")
     var email=req.param("email")
     var subject=req.param("subject");
     var message=req.param("message");
     var status=false;
-    console.log("the data are here---"+name+" "+email+" "+subject+" "+message);
     if(Object.keys(req.body).length <=0){
-        console.log('1');
         status=false;
         res.json({save:status});
     }else if(name==undefined || name==null || name==''){
-        console.log('2');
         status=false;
         res.json({save:status});
     }else if(email==undefined || email==null || email==''){
-        console.log('4');
         status=false;
         res.json({save:status});
     }else if(subject==undefined || subject==null || subject==''){
-        console.log('6');
         status=false;
         res.json({save:status});
     }else{
-        console.log('****9');
-        var MongoClient1 = require('mongodb').MongoClient;
-        MongoClient1.connect('mongodb://localhost:27017/Future_Minds', function(err, db) {
-            console.log('****10');
-            if (err) throw err;
+     //   var MongoClient1 = require('mongodb').MongoClient;
+       // MongoClient1.connect('mongodb://localhost:27017/Future_Minds', function(err, db) {
+          //  if (err) throw err;
             var param={
                 created_at:new Date(),
                 name:name,
                 email:email,
                 subject:subject,
                 message:message
-
-
             }
-            db.collection('Contact').findOne({email:req.body.email}, {}, { sort: { 'created_at' : -1 } }, function(err, usr){
-                console.log('****11');
+          /*  db.collection('Contact').findOne({email:req.body.email}, {}, { sort: { 'created_at' : -1 } }, function(err, usr){
                 console.log('=====user: '+JSON.stringify(usr));
                 if(usr==undefined || usr==null){
                     usr={};
                 }
                 if(err) {
                     return handleError(res, err);
-                }else if(Object.keys(usr).length>0){
+                }
+              *//*  else if(Object.keys(usr).length>0){
                     console.log('======duplicate users are not allowed')
                     res.json({save:false,msg:'This emailId is already registered'});
-                }else {
-                    db.collection('Contact').insert([param],function(error,result){
-                        console.log('****12');
-                        if(error){
-                            console.log('error in registration!!!!');
-                        }else{
-                            console.log('****13');
-                            console.log('data saved successfully!!!!');
-                            EmailServices.registerOnSuccessMail(req,res,function(err, mailStatus){
+                }*//*
+                else {*/
+                  /*  db.collection('Contact').insert([param],function(error,result){
 
+                        if(error){
+
+                        }else{*/
+                            EmailServices.registerOnSuccessMail(req,res,function(err, mailStatus){
                             });
-                            res.json({save:true,msg:'message Registered successful'});
-                        }
-                    });
-                }
-            });
-        });
+                            setTimeout(function () {
+                                EmailServices.responseMailFromTandT(req,res,function(err, sentMailStatus){});
+                            }, 10000);
+                            res.redirect('/index');
+                           // res.json({save:true,msg:'message Registered successful'});
+                      //  }
+                  //  });
+              //  }
+           // });
+      //  });
 
 
     }

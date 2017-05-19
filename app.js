@@ -1,4 +1,45 @@
+/**
+ * Module dependencies.
+ */
 
+/*
+var express = require('express');
+var connect = require('connect');
+var routes = require('./routes');
+var http = require('http');
+var path = require('path');
+var bodyParser = require('body-parser');
+var compression = require('compression');
+//load customers route
+var patients = require('./routes/patients'); 
+var app = express();
+var app = connect();
+var connection  = require('express-myconnection'); 
+var mysql = require('mysql');
+
+// all environments
+*/
+/*app.set('port', process.env.PORT || 3000);
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');*//*
+
+//app.use(express.favicon());
+app.use(express.logger('dev'));
+app.use(express.json());
+app.use(express.urlencoded());
+app.use(express.methodOverride());
+var logger = require('morgan');
+app.use(logger);
+app.use(express.static(path.join(__dirname, 'public')));
+*/
+/*app.use(bodyParser());*//*
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(compression());
+
+
+
+// development only
+*/
 
 var express = require('express');
 
@@ -18,11 +59,10 @@ var cookieParser = require('cookie-parser');
 var session = require("express-session");
 var errorHandler = require('errorhandler');
 var path = require('path');
-var port = process.env.PORT || 3000;
 app.use(express.logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded());
-/*app.use(express.methodOverride());*/
+app.use(express.methodOverride());
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
 //---------------
@@ -36,13 +76,13 @@ app.use(session({resave: true, saveUninitialized: true, secret: 'SOMERANDOMSECRE
 
 app.set('view engine', 'ejs');
 /*var mongoose = require('mongoose');
- var configDB = require('./config/database.js');
- mongoose.connect(configDB.url);
- console.log(mongoose.connection.readyState);
- mongoose.connection.on('connected', function () {
- console.log('Mongoose default connection open to ' + configDB.url);
- });*/
-// pass passport for configuration
+var configDB = require('./config/database.js');
+mongoose.connect(configDB.url);
+console.log(mongoose.connection.readyState);
+mongoose.connection.on('connected', function () {
+    console.log('Mongoose default connection open to ' + configDB.url);
+});*/
+ // pass passport for configuration
 // routes ======================================================================
 
 var MongoClient1 = require('mongodb').MongoClient;
@@ -101,6 +141,9 @@ app.get('/doctorDisplayData', function(req, res){
 });
 
 
-app.listen(port, function() {
-    console.log('app listening on port', port);
-});
+var server = app.listen(8081, function () {
+    var host = server.address().address
+    var port = server.address().port
+
+    console.log("Example app listening at http://%s:%s", host, port)
+})

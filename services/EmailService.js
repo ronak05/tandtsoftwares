@@ -11,13 +11,12 @@ var baseUrlForForgotPassword="138.68.56.250:9000/#/confirm-password";
 var baseUrlForPasswordReset="138.68.56.250:9000/#/confirm-password-mail-sent";
 /*var supportMail= process.env.SUPPORT_MAIL;
  var supportPass= process.env.SUPPORT_PASS;*/
-var supportMail="rakfhir@gmail.com";
-var supportPass="8018260402";
+var supportMail="tandtsoftwares@gmail.com";
+var supportPass="Tandt11#";
 
 var EmailService = {
 
   registerOnSuccessMail: function(req, res, callback) {
-      console.log('1inside maining--->')
     var email = req.body.email;
     var subject = req.body.subject;
     var message=req.body.message;
@@ -31,20 +30,18 @@ var EmailService = {
       }
     }));
     var mailOptions = {
-      from: supportMail, // sender address
-      to: email, // list of receivers
-      subject: 'Welcome to FutureMinds', // Subject line
+      from: email, // sender address
+      to: supportMail, // list of receivers
+      subject: 'Welcome to TandTSoftwares', // Subject line
       //text: 'Hello world' // plaintext body
-      html: 'Welcome to FutureMinds. See below for your Email .<br/><br/>' +
-      'Email: '+email+'<br/>'+
-      'Simply visit: '+
-      '<i>  Thanks for your message to us. We will definitely get back to you.<br/><br/>'+
-      'Thanks,<br/>'+
-      'Adminstrator<br/>'+
-      'rkd.rakeshdas@gmail.com'
+      html: 'Welcome to TandTSoftwares.<br/><br/>' +
+      'Message For TandTSoftwares: '+
+      '<i>  '+message+'<br/><br/>'+
+      'Thanks and Regards<br/>'+
+      ''+email+'<br/>'
     };
     transporter.sendMail(mailOptions, function(error, info){
-        console.log('2inside maining--->')
+
       if(error){
         console.log(error);
       }else{
@@ -53,7 +50,43 @@ var EmailService = {
       }
     });
 
-  }
+  },
+
+
+    responseMailFromTandT: function(req, res, callback) {
+        var email = req.body.email;
+        var subject = req.body.subject;
+        var message=req.body.message;
+        var name=req.body.name;
+
+        var transporter = nodemailer.createTransport(smtpTransport({
+            service: 'Gmail',
+            auth: {
+                user: supportMail,
+                pass: supportPass
+            }
+        }));
+        var mailOptions = {
+            from: supportMail, // sender address
+            to: email, // list of receivers
+            subject: 'Welcome to TandTSoftwares', // Subject line
+            //text: 'Hello world' // plaintext body
+            html: 'Welcome to TandTSoftwares<br/><br/>' +
+            'Thanks and Pleasure to get your message, we will definitely get back to you.<br/>'+
+            'Thanks and Regards<br/>'+
+            'tandtsoftwares@gmail.com<br/>'
+        };
+        transporter.sendMail(mailOptions, function(error, info){
+
+            if(error){
+                console.log(error);
+            }else{
+
+
+            }
+        });
+
+    }
 
 /*  forgotPasswordMail:function(req, res, callback){
     var email = req.body.email;
